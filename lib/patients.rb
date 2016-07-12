@@ -38,4 +38,8 @@ class Patient
   define_method(:==) do | another_patient |
     self.name() == another_patient.name() && self.birthday == another_patient.birthday && self.doctor_id == another_patient.doctor_id && self.id == another_patient.id
   end
+
+  define_singleton_method(:clear) do
+    DB.exec("DELETE FROM patients;")
+  end
 end

@@ -33,7 +33,7 @@ class Doctor
     result = DB.exec("INSERT INTO doctors (name, specialty_id) VALUES ('#{@name}', #{@specialty_id}) RETURNING id;")
     @id = result.first().fetch('id').to_i()
   end
-  define_method(:==) do | another_doctor |
+  define_method(:==) do |another_doctor|
     (self.name() == another_doctor.name()) && (self.specialty_id() == another_doctor.specialty_id())
   end
 
@@ -49,4 +49,7 @@ class Doctor
     doctors
   end
 
+  define_singleton_method(:clear) do
+    DB.exec("DELETE FROM doctors;")
+  end
 end

@@ -1,0 +1,80 @@
+<div class="contianer">
+  <h3><a class="button btn-danger" href="/clear_database">Clear the entire database</a></h3>
+  <h1>Page for Admins to add doctors, patients, and specialties.</h1>
+  <div class="row">
+    <div class="col-xs-4">
+      <form action="/new_specialty" method="post">
+        <label for="specialty_name">Enter specialty name</label>
+        <input type="text" name="specialty_name">
+        <button type="submit" class="btn btn-success">Create Specialty</button>
+      </form>
+    </div>
+    <div class="col-xs-4">
+      <form action="/new_doctor" method="post">
+        <label for="doctor_name">Enter doctor name</label>
+        <input type="text" name="doctor_name">
+        <label for="specialty_id">Enter a specialty ID number</label>
+        <select class="form-control" name="specialty_id">
+          <% if @specialties %>
+            <% @specialties.each() do |specialty| %>
+            <option value="<%= specialty.id %>"><%= specialty.specialty %></option>
+            <% end %>
+          <% end %>
+        </select>
+        <button type="submit" class="btn btn-success">Create Doctor</button>
+      </form>
+    </div>
+    <div class="col-xs-4">
+      <form action="/new_patient" method="post">
+        <label for="name">Enter patient name</label>
+        <input type="text" name="name">
+        <label for="doctor_id">Enter the patient's doctor id</label>
+        <input type="text" name="doctor_id">
+        <label for="patient_birthday">Enter patient birthday</label>
+        <input type="text" name="patient_birthday">
+        <button type="submit" class="btn btn-success">Create Patient</button>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-4">
+      <h4>List of all specialties by ID number</h4>
+      <% if @specialties %>
+        <ol>
+          <% @specialties.each() do |specialty| %>
+            <li><a href="/specialty/<%= specialty.id() %>"><%= specialty.specialty() %></a></li>
+          <% end %>
+        </ol>
+      <% else %>
+        <h4>No specialties have been added yet.</h4>
+      <% end %>
+    </div>
+    <div class="col-xs-4">
+      <h4>List of all doctors by name and specialty</h4>
+      <% if @doctors %>
+        <ol>
+          <% @doctors.each() do |doctor| %>
+            <li>Name: <a href="/doctors/<%= doctor.id() %>"><%= doctor.name() %></a>. Specialty ID: <%= doctor.specialty_id() %></li>
+          <% end %>
+        </ol>
+      <% else %>
+        <h4>No Doctors have been added yet</h4>
+      <% end %>
+    </div>
+    <div class="col-xs-4">
+      <h4>List of all patients by name</h4>
+      <% if @patients %>
+        <ul>
+          <% @patients.each() do |patient| %>
+            <li>Name: <a href="/patients/<%= patient.id() %>"><%= patient.name() %></a></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <h4>No Patients have been added yet</h4>
+      <% end %>
+    </div>
+  </div>
+
+</div>
