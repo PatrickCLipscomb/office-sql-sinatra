@@ -1,0 +1,6 @@
+<h1>List of available specialties</h1>
+<% if @specs %>
+  <% @specs.each() do |spec| %>
+    <p><a href="/doctors/spec/<%= spec.id %>"><%= spec.name %></a>
+  <% end %>
+<% end %>
